@@ -1,0 +1,77 @@
+NAME
+    BSON - Pure Perl implementation of MonogoDB's BSON serialization
+
+VERSION
+    Version 0.01
+
+SYNOPSIS
+        use BSON qw/encode decode/;
+
+        my $document = {
+            _id    => BSON::ObjectId->new,
+            date   => BSON::Time->new,
+            name   => 'James Bond',
+            age    => 45,
+            amount => 24587.45,
+            badass => BSON::Bool->true
+        };
+
+        my $bson = encode( $document );
+        my $doc2 = decode( $bson, %options );
+
+DESCRIPTION
+    This module implements BSON serialization and deserialization as
+    described at <http://bsonspec.org>. BSON is the primary data
+    representation for MongoDB.
+
+EXPORT
+    The module does not export anything. You have to request "encode" and/or
+    "decode" maually.
+
+        use BSON qw/encode decode/;
+
+SUBROUTINES
+  encode
+    Takes a hashref and returns the serialized BSON string.
+
+        my $bson = encode({ bar => 'foo' });
+
+  decode
+    Takes a BSON string and returns deserialized hashref.
+
+        my $hash = decode( $bson, ixhash => 1 );
+
+    The parameters after $bson are optional and they can be any of the
+    following:
+
+   options
+    1   ixhash => 1|0
+
+        If set to 1 "decode" will return a Tie::IxHash ordered hash.
+        Otherwise, a regular unordered hash will be returned. The default
+        value is 0.
+
+THREADS
+    This module is thread safe.
+
+SEE ALSO
+    BSON::Time, BSON::ObjectId, BSON::Code, BSON::Binary, BSON::Bool,
+    BSON::MinKey, BSON::MaxKey, BSON::Timestamp, Tie::IxHash, MongoDB
+
+AUTHOR
+    minimalist, "<minimalist at lavabit.com>"
+
+BUGS
+    Bug reports and patches are welcome. Reports which include a failing
+    Test::More style test are helpful and will receive priority.
+
+DEVELOPMENT
+    The source code of this module is available on GitHub:
+    https://github.com/naturalist/Perl-BSON
+
+LICENSE AND COPYRIGHT
+    Copyright 2011 minimalist.
+
+    This program is free software; you can redistribute it and/or modify it
+    under the terms as perl itself.
+
